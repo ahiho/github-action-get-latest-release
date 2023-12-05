@@ -33,13 +33,12 @@ async function run() {
             releases = releases.filter(x => x.draft != true);
         }
         if (releases.length) {
-            let release = releases[0].tag_name;
             if (replacements.length) {
                 replacements.forEach(function(replacement) {
-                    release = release.replace(replacement, '');
+                    releases[0].tag_name = releases[0].tag_name.replace(replacement, '');
                 });
             }
-            core.setOutput('release', release);
+            core.setOutput('release', releases[0].tag_name);
             core.setOutput('id', String(releases[0].id));
             core.setOutput('description', String(releases[0].body));
         } else {
