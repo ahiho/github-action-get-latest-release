@@ -35,7 +35,7 @@ async function run() {
         if (releases.length) {
             let release = releases[0].tag_name;
             if (replacements.length) {
-                replacements.split(",").forEach(function(replacement) {
+                replacements.forEach(function(replacement) {
                     release = release.replace(replacement, '');
                 });
             }
