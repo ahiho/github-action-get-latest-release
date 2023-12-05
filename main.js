@@ -6,6 +6,7 @@ const token = core.getInput('token');
 var owner = core.getInput('owner');
 var repo = core.getInput('repo');
 var excludes = core.getInput('excludes').trim().split(",");
+var replacements = core.getInput('replacements').trim().split(",");
 
 const octokit = (() => {
   if (token) {
@@ -32,7 +33,13 @@ async function run() {
             releases = releases.filter(x => x.draft != true);
         }
         if (releases.length) {
-            core.setOutput('release', releases[0].tag_name);
+            let release = releases[0].tag_name;
+            if (replacements.length) {
+                replacements.split(",").forEach(function(replacement) {
+                    release = release.replace(replacement, '');
+                });
+            }
+            core.setOutput('release', release);
             core.setOutput('id', String(releases[0].id));
             core.setOutput('description', String(releases[0].body));
         } else {
