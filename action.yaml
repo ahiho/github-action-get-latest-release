@@ -16,6 +16,9 @@ inputs:
   repository:
     description: 'The repository name in full'
     required: false
+  replacements:
+    description: 'A string of replacements to remove from the release name'
+    required: false
   excludes:
     description: 'Types of releases to exclude (e.g. pre-release)'
     required: false
